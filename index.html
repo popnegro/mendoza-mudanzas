@@ -1,0 +1,104 @@
+<section id="cotizador" class="quote-section">
+    <div class="container">
+        <div class="quote-card">
+            <h3>Calcula el costo de tu mudanza al instante</h3>
+            <p>Obtén un estimado basado en tus necesidades reales.</p>
+            
+            <form id="quote-form">
+                <div class="quote-grid">
+                    <div class="input-group">
+                        <label>Tamaño de la mudanza</label>
+                        <select id="size" required>
+                            <option value="15000">Monoambiente / Pocos muebles</option>
+                            <option value="35000" selected>Casa pequeña / 2-3 ambientes</option>
+                            <option value="60000">Casa grande / 4+ ambientes</option>
+                            <option value="85000">Oficina / Corporativo</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Distancia aproximada (km)</label>
+                        <input type="number" id="distance" value="10" min="1" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="packing" value="5000"> ¿Necesitas embalaje?</label>
+                        <label><input type="checkbox" id="stairs" value="3000"> ¿Hay escaleras?</label>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Tu WhatsApp</label>
+                        <input type="tel" id="user-phone" placeholder="261..." required>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <div class="price-display">
+                        <span>Total estimado:</span>
+                        <strong id="total-price">$0</strong>
+                    </div>
+                    <button type="submit" class="btn-main">Reservar Fecha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .quote-section { padding: 40px 0; margin-top: -60px; position: relative; z-index: 10; }
+    .quote-card { 
+        background: #fff; padding: 40px; border-radius: 15px; 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #e1e4e8;
+    }
+    .quote-card h3 { color: var(--primary-color); margin-bottom: 5px; }
+    .quote-grid { 
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        gap: 20px; margin-top: 25px; align-items: end;
+    }
+    .input-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+    .input-group select, .input-group input { 
+        width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;
+    }
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+    
+    .result-box { 
+        margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .price-display span { color: var(--text-light); font-size: 1.1rem; }
+    .price-display strong { color: var(--success); font-size: 2rem; display: block; }
+
+    @media (max-width: 768px) {
+        .result-box { flex-direction: column; gap: 20px; text-align: center; }
+        .quote-section { margin-top: 0; }
+    }
+</style>
+
+<script>
+    const form = document.getElementById('quote-form');
+    const inputs = form.querySelectorAll('input, select');
+
+    function calcular() {
+        let base = parseInt(document.getElementById('size').value);
+        let dist = parseInt(document.getElementById('distance').value) * 200; // $200 por km
+        let packing = document.getElementById('packing').checked ? parseInt(document.getElementById('packing').value) : 0;
+        let stairs = document.getElementById('stairs').checked ? parseInt(document.getElementById('stairs').value) : 0;
+
+        let total = base + dist + packing + stairs;
+        
+        // Animación simple de números
+        document.getElementById('total-price').innerText = `$${total.toLocaleString('es-AR')}`;
+    }
+
+    // Calcular en tiempo real
+    inputs.forEach(input => input.addEventListener('change', calcular));
+    inputs.forEach(input => input.addEventListener('keyup', calcular));
+
+    // Inicializar
+    calcular();
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        alert("¡Gracias! Un asesor de TuWebHoy te contactará al " + document.getElementById('user-phone').value);
+    };
+</script>
