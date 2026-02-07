@@ -7,6 +7,6 @@
    <url>
        <loc>https://popnegro.github.io/mendoza-mudanzas</loc>
        <changefreq>daily</changefreq>
-       <priority>1</priority>
+       <priority>0.9</priority>
    </url>   
 </urlset>
