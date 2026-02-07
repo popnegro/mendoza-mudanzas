@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: Googlebot
+Allow: /
+
+# Sitemaps
+Sitemap: https://popnegro.github.io/mendoza-mudanzas/sitemap.xml
+
